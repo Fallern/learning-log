@@ -1,0 +1,49 @@
+{% extends "learning_logs/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <h2>Регистрация</h2>
+{% endblock page_header %}
+
+{% block content %}
+<form method="post" action="{% url 'users:register' %}" class="form">
+ {% csrf_token %}
+ {% bootstrap_form form %}
+ {% buttons %}
+   <button class="btn btn-primary" name="submit">Зарегистрироваться</button>
+ {% endbuttons %}
+ <input type="hidden" name="next" value="{% url 'learning_logs:index' %}" />
+ </form>
+
+{% endblock content %}
+
+{% block javascript %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+          // отслеживаем событие отправки формы
+          $('#id_username').keyup(function () {
+              // создаем AJAX-вызов
+              $.ajax({
+                  data: $(this).serialize(),
+                  url: "{% url 'users:validate_username' %}",
+                  success: function (response) {
+                      if (response.is_taken == true) {
+                          $('#id_username').removeClass('is-valid').addClass('is-invalid');
+                          $('#id_username').after('<div class="invalid-feedback d-block" id="usernameError">Данное имя уже используется</div>')
+                      }
+                      else {
+                          $('#id_username').removeClass('is-invalid').addClass('is-valid');
+                          $('#usernameError').remove();
+                      }
+                  },
+                  error: function (response) {
+                      console.log(response.responseJSON.errors)
+                  }
+              });
+              return false;
+          });
+      })
+  </script>
+
+{% endblock javascript %}

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        {% load bootstrap4 %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Журнал обучения</title>
+        {% bootstrap_css %}
+        {% bootstrap_javascript jquery='full' %}
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+    <a href="{% url 'learning_logs:index' %}" class="navbar-brand">Журнал обучения</a>
+    <button class="navbar-toggler" type="button"
+            data-toggle="collapse"
+            data-target="#navbarCollapse"
+            aria-controls="navbarCollapse"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a href="{% url 'learning_logs:topics' %}" class="nav-link">Темы</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <span class="navbar-text">Привет, {{ user.username }}.</span>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'users:logout' %}" class="nav-link">Выйти</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'users:register' %}" class="nav-link">Регистрация</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'users:login' %}" class="nav-link">Войти</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+<main class="container" role="main">
+    <div class="pb-2 mb-2 border-bottom">
+        {% block page_header %}{% endblock page_header %}
+    </div>
+    <div>
+        {% block content %}{% endblock content %}
+    </div>
+</main>
+
+{% block javascript %}
+
+{% endblock javascript %}
+
+</body>
+
+</html>
