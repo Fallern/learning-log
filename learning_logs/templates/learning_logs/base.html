@@ -1,12 +1,24 @@
 <!doctype html>
 <html lang="ru">
-    <head>
-        {% load bootstrap4 %}
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Журнал обучения</title>
-        {% bootstrap_css %}
-        {% bootstrap_javascript jquery='full' %}
+<head>
+    {% load bootstrap4 %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Журнал обучения</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+
+    <style>
+        #bg-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-position: center center;
+            background-size: cover;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
@@ -26,19 +38,19 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <span class="navbar-text">Привет, {{ user.username }}.</span>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url 'users:logout' %}" class="nav-link">Выйти</a>
-                </li>
+            <li class="nav-item">
+                <span class="navbar-text">Привет, {{ user.username }}.</span>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'users:logout' %}" class="nav-link">Выйти</a>
+            </li>
             {% else %}
-                <li class="nav-item">
-                    <a href="{% url 'users:register' %}" class="nav-link">Регистрация</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url 'users:login' %}" class="nav-link">Войти</a>
-                </li>
+            <li class="nav-item">
+                <a href="{% url 'users:register' %}" class="nav-link">Регистрация</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'users:login' %}" class="nav-link">Войти</a>
+            </li>
             {% endif %}
         </ul>
     </div>

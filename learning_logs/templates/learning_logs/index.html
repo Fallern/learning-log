@@ -1,6 +1,9 @@
 {% extends "learning_logs/base.html" %}
+{% load static %}
 
 {% block page_header %}
+
+
     <div class="jumbotron">
         <h1 class="display-3">Отслеживайте свое обучение</h1>
         <p class="lead">
@@ -13,5 +16,11 @@
 {% endblock page_header %}
 
 {% block content %}
+    <canvas id="bg-img"></canvas>
     <p>Журнал обучения помогает вам отслеживать свои знания по любой теме, которую вы изучаете</p>
 {% endblock content %}
+
+{% block javascript %}
+    <script src="{% static 'learning_logs/js/TweenMax.min.js' %}"></script>
+    <script src="{% static 'learning_logs/js/rain.js' %}"></script>
+{% endblock javascript %}
